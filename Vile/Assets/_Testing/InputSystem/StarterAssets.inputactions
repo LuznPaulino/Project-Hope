@@ -37,6 +37,14 @@
                     "processors": "",
                     "interactions": ""
                 }
+                {
+                    "name": "Crouch",
+                    "type": "PassThrough",
+                    "id": "9c5a6e34-d9bb-4b6b-abe3-608192a0366b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
             ],
             "bindings": [
                 {
