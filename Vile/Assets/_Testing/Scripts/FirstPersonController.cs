@@ -15,6 +15,15 @@ namespace StarterAssets
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
 		[Tooltip("Sprint speed of the character in m/s")]
+		
+		//Crouching Speed 
+		public float CrouchSpeed = 3.0f;
+
+		//Player Height and Crouching Height
+		public float StandingHeight = 1.7f;
+		public float crouchHeight = 1.28f;
+
+
 		public float SprintSpeed = 6.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
@@ -98,6 +107,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+		
 		}
 
 		private void LateUpdate()
@@ -137,7 +147,10 @@ namespace StarterAssets
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = _input.sprint ? SprintSpeed
+				: _input.crouch ? CrouchSpeed				//Statement Creates If elif and else structure
+				:MoveSpeed;									//If input is Sprint the Speed will be the Sprinting Speed
+															//If input is Crouch the target Speed will have the crouching Speed else Move speed is given
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -179,6 +192,9 @@ namespace StarterAssets
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			
+			//changes the player height
+			_controller.height = _input.crouch ? crouchHeight : StandingHeight;
 		}
 
 		private void JumpAndGravity()
